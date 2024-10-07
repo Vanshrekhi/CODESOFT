@@ -1,0 +1,80 @@
+# ToDo List Application in Python (Command Line)
+import os
+
+# Function to display the to-do list
+def display_todo_list(todo_list):
+    if not todo_list:
+        print("\nYour to-do list is empty.")
+    else:
+        print("\nTo-Do List:")
+        for index, task in enumerate(todo_list, start=1):
+            print(f"{index}. {task}")
+
+# Function to add a task to the to-do list
+def add_task(todo_list):
+    task = input("\nEnter the task: ")
+    todo_list.append(task)
+    print(f"Task '{task}' added to the list!")
+
+# Function to update a task in the to-do list
+def update_task(todo_list):
+    display_todo_list(todo_list)
+    if todo_list:
+        try:
+            task_number = int(input("\nEnter the task number to update: ")) - 1
+            if 0 <= task_number < len(todo_list):
+                updated_task = input("Enter the updated task: ")
+                todo_list[task_number] = updated_task
+                print("Task updated successfully!")
+            else:
+                print("Invalid task number.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+# Function to delete a task from the to-do list
+def delete_task(todo_list):
+    display_todo_list(todo_list)
+    if todo_list:
+        try:
+            task_number = int(input("\nEnter the task number to delete: ")) - 1
+            if 0 <= task_number < len(todo_list):
+                removed_task = todo_list.pop(task_number)
+                print(f"Task '{removed_task}' deleted from the list!")
+            else:
+                print("Invalid task number.")
+        except ValueError:
+            print("Please enter a valid number.")
+
+# Main function for the To-Do List application
+def todo_list_app():
+    todo_list = []
+    while True:
+        print("\n--- To-Do List Application ---")
+        print("1. View To-Do List")
+        print("2. Add Task")
+        print("3. Update Task")
+        print("4. Delete Task")
+        print("5. Exit")
+        
+        choice = input("Choose an option (1-5): ")
+        
+        if choice == "1":
+            display_todo_list(todo_list)
+        elif choice == "2":
+            add_task(todo_list)
+        elif choice == "3":
+            update_task(todo_list)
+        elif choice == "4":
+            delete_task(todo_list)
+        elif choice == "5":
+            print("Exiting the application.")
+            break
+        else:
+            print("Invalid choice. Please choose a valid option.")
+        
+        input("\nPress Enter to continue...")  # Wait for user to press Enter
+        os.system('cls' if os.name == 'nt' else 'clear')  # Clear the console
+
+# Run the To-Do List Application
+if __name__ == "__main__":
+    todo_list_app()
